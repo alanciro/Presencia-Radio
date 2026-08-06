@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#f4000b">
+    <title>PRESENCIA RADIO</title>
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/lunaradio-animado.js"></script>
+    <style>
+        /* Evita el pantallazo blanco fijando fondo negro inicial */
+        html, body {
+            font-family: "Open Sans", sans-serif;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .fs-vid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-color: #000000;
+        }
+
+        .fs-vid-background video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        #player {
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 300 !important;
+            padding-left: 0 !important;
+            background: transparent !important;
+        }
+
+        /* Fuerza a los textos a verse bien desde el inicio */
+        #player * {
+            color: #ffffff;
+        }
+
+        /* Fuerza al ecualizador a iniciar desde el borde izquierdo */
+        #player canvas, 
+        .lunaradio-visualizer, 
+        canvas.visualizer {
+            left: 0 !important;
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+            width: 100% !important;
+        }
+
+        /* Animación en rojo para el icono LIVE */
+        @keyframes parpadeoRojo {
+            0% {
+                color: #ffffff !important;
+                fill: #ffffff !important;
+            }
+            50% {
+                color: #ff0000 !important;
+                fill: #ff0000 !important;
+            }
+            100% {
+                color: #ffffff !important;
+                fill: #ffffff !important;
+            }
+        }
+
+        .lunaradio-live, 
+        #player .live, 
+        .liveicon {
+            animation: parpadeoRojo 1.2s infinite !important;
+        }
+
+        /* Estilo para el Copyright flotante abajo sin fondo negro */
+        footer {
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            text-align: center;
+            background: transparent !important;
+            pointer-events: none; /* Evita tapar los botones del reproductor */
+        }
+
+        footer div {
+            background: transparent !important;
+            color: #ffffff !important;
+            font-size: 12px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Sombra para legibilidad sobre el video */
+            padding: 5px;
+        }
+
+        footer a {
+            color: #ffffff !important;
+            text-decoration: none;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fs-vid-background">
+        <video autoplay="true" muted="true" loop="true">
+            <source src="https://ia601902.us.archive.org/5/items/paisaje-peru/PAISAJE%20%20-%20PERU%20.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div id="player"></div>
+
+    <script>
+        $("#player").lunaradio({
+            userinterface: "big",
+            backgroundcolor: "transparent!",
+            fontcolor: "#ffffff",
+            hightlightcolor: "#ff0000",
+            fontname: "Roboto",
+            googlefont: "",
+            fontratio: "0.4",
+            radioname: "Estas Escuchando",
+            scroll: "true",
+            coverimage: "img/cover.jpg",
+            onlycoverimage: "false",
+            coverstyle: "animated",
+            usevisualizer: "real",
+            visualizertype: "8",
+            itunestoken: "1000lIPN",
+            metadatatechnic: "directly", //fallback (usar para zeno)
+            corsproxy: "",
+            usestreamcorsproxy: "false",
+            streamurl: "https://azurakp4.com/listen/presenciaradio/",
+            streamtype: "icecast2", //soporta: zeno, icecast2, shoutcast2
+            idzeno: "",
+            icecastmountpoint: "/radio.mp3",
+            shoutcastpath: "",
+            shoutcastid: "1",
+            metadatainterval: "26000",
+            volume: "100",
+            debug: "false",
+            autoplay: "true",
+            displayliveicon: "true",
+            visualizeropacity: "1.0",
+            multicolorvisualizer: "true",
+            color1: "#00FF00",
+            color2: "#ffff00",
+            color3: "#FF1F6F",
+            color4: "#FF1F6F",
+        });
+    </script>
+
+    <footer>
+        <div>
+            &copy; Copyright 2026 - <a href="http://www.google.com">Presencia Streaming</a>
+        </div>
+    </footer>
+
+    <script>
+        $(".mobile-nav-toggle").click(function () {
+            $("body").toggleClass("mobile-nav-active");
+            $(".mobile-nav-toggle i").toggleClass("fa-bars fa-times");
+        });
+    </script>
+</body>
+
+</html>
